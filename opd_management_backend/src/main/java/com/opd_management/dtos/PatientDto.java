@@ -123,7 +123,7 @@ public class PatientDto {
 		return created_at;
 	}
 	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
+		this.created_at = LocalDateTime.now();
 	}
 	public int getDoctorid() {
 		return doctorid;

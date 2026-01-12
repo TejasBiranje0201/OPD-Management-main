@@ -23,11 +23,11 @@ public class DoctorServiceImpl implements DoctorService {
 	// access repository methods
 	@Override
 	public Doctor saveDoctor(Doctor doctor) {
-		try {
 
-			if (doctorRepository.existsByEmail(doctor.getEmail())) {
-				throw new DuplicateValuesException("doctor with email " + doctor.getEmail() + " already exists");
-			}
+		if (doctorRepository.existsByEmail(doctor.getEmail())) {
+			throw new DuplicateValuesException("doctor with email " + doctor.getEmail() + " already exists");
+		}
+		try {
 			return doctorRepository.save(doctor);// repository method
 		} catch (Exception e) {
 			throw new DatabaceException("Failed to save doctor due to database error");
@@ -42,15 +42,15 @@ public class DoctorServiceImpl implements DoctorService {
 		} catch (Exception e) {
 			throw new DatabaceException("Failed to get list of  doctor due to database error");
 		}
-		
+
 	}
 
 	@Override
 	public Doctor getDoctorById(int id) {
 //		try {
-			return doctorRepository.findById(id)
-					.orElseThrow(() -> new ResourceNotFoundException("Doctor not found with id: " + id));// repository
-																											// method
+		return doctorRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Doctor not found with id: " + id));// repository
+																										// method
 //		} catch (Exception e) {
 //			throw new DatabaceException("Failed to get   doctor due to database error");
 //
@@ -68,18 +68,17 @@ public class DoctorServiceImpl implements DoctorService {
 		} catch (Exception e) {
 			throw new DatabaceException("Failed to delete doctor due to database error");
 		}
-		
+
 	}
 
 	@Override
 	public Doctor getDoctorByEmail(String email) {
 		try {
-			return doctorRepository.findByEmail(email)//  custom repository method
-					.orElseThrow(() -> new ResourceNotFoundException(
-	                "Doctor not found with email: " + email));
+			return doctorRepository.findByEmail(email)// custom repository method
+					.orElseThrow(() -> new ResourceNotFoundException("Doctor not found with email: " + email));
 		} catch (Exception e) {
 			throw new DatabaceException("Failed to get doctor due to database error");
 		}
-			}
+	}
 
 }

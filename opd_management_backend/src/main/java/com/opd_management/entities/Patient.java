@@ -132,7 +132,7 @@ public class Patient {
 	}
 
 	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
+		this.created_at = LocalDateTime.now();
 	}
 
 	public Doctor getDoctorid() {

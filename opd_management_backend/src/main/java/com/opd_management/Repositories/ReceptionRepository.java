@@ -7,5 +7,6 @@ import com.opd_management.entities.Reception;
 
 @Repository
 public interface ReceptionRepository extends JpaRepository<Reception, Integer> {
+	Reception findByEmail(String email);
 
 }

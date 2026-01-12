@@ -8,28 +8,21 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name ="doctors")//table name
-public class Doctor {
-
+public class Admin {
 	
+
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String email;
 	private String password;
-	private String specialization;
-	private String qualification;
-	private String clinic_name;
-	private String address;
 	private String mobileno;
 	@Enumerated(EnumType.STRING)
 	private Role role;   // ADMIN / DOCTOR/ RECEPTIONIST
 	private String token;
-	private String status;
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
 	public int getId() {
@@ -56,30 +49,6 @@ public class Doctor {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getSpecialization() {
-		return specialization;
-	}
-	public void setSpecialization(String specialization) {
-		this.specialization = specialization;
-	}
-	public String getQualification() {
-		return qualification;
-	}
-	public void setQualification(String qualification) {
-		this.qualification = qualification;
-	}
-	public String getClinic_name() {
-		return clinic_name;
-	}
-	public void setClinic_name(String clinic_name) {
-		this.clinic_name = clinic_name;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
 	public String getMobileno() {
 		return mobileno;
 	}
@@ -98,51 +67,38 @@ public class Doctor {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = LocalDateTime.now();
+		this.created_at = LocalDateTime.now();;
 	}
 	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
 	public void setUpdated_at(LocalDateTime updated_at) {
-		this.updated_at = LocalDateTime.now();
+		this.updated_at = LocalDateTime.now();;
 	}
 	@Override
 	public String toString() {
-		return "Doctor [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
-				+ ", specialization=" + specialization + ", qualification=" + qualification + ", clinic_name="
-				+ clinic_name + ", address=" + address + ", mobileno=" + mobileno + ", role=" + role + ", token="
-				+ token + ", status=" + status + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
+		return "admin [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", mobileno="
+				+ mobileno + ", role=" + role + ", token=" + token + ", created_at=" + created_at + ", updated_at="
+				+ updated_at + "]";
 	}
-	public Doctor(int id, String name, String email, String password, String specialization, String qualification,
-			String clinic_name, String address, String mobileno, Role role, String token, String status,
+	public Admin(int id, String name, String email, String password, String mobileno, Role role, String token,
 			LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.specialization = specialization;
-		this.qualification = qualification;
-		this.clinic_name = clinic_name;
-		this.address = address;
 		this.mobileno = mobileno;
 		this.role = role;
 		this.token = token;
-		this.status = status;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
-	public Doctor() {
+	public Admin() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -150,6 +106,5 @@ public class Doctor {
 	
 	
 	
-	
-	
+
 }

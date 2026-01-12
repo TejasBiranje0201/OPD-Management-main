@@ -1,6 +1,7 @@
 package com.opd_management.entities;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -22,7 +23,7 @@ public class VisitReport {
 	private String file_name;
 	private String file_url;
 	private String file_type;
-	private Date created_at;
+	private LocalDateTime created_at;
 	
 	//table relation
 	@ManyToOne
@@ -64,12 +65,12 @@ public class VisitReport {
 		this.file_type = file_type;
 	}
 
-	public Date getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date creared_at) {
-		this.created_at = created_at;
+	public void setCreated_at(LocalDateTime creared_at) {
+		this.created_at = LocalDateTime.now();
 	}
 
 	public Visit getVisitid() {
@@ -81,7 +82,7 @@ public class VisitReport {
 	}
 
 	//contructor
-	public VisitReport(int id, String file_name, String file_url, String file_type, Date created_at, Visit visitid) {
+	public VisitReport(int id, String file_name, String file_url, String file_type, LocalDateTime created_at, Visit visitid) {
 		super();
 		this.id = id;
 		this.file_name = file_name;

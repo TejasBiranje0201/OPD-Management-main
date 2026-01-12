@@ -32,8 +32,7 @@ public class BillController {
 	@Autowired 
 	private VisitService visitService; // Service to fetch visit details
 	
-	// ---------------------- Create Bill ----------------------
-	
+	// ---------------------- Create Bill ----------------------//
 	@PostMapping("/")
 	public ResponseEntity<Bill> saveBill(@Valid@RequestBody BillDto billDto){
 		
@@ -122,14 +121,11 @@ public class BillController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Bill> DeleteBill(@PathVariable("id") int id){
-		
 		Bill bill = billService.GetBillById(id);
-		
 		// If bill not found return NOT_FOUND
 		if(bill == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
 		// Delete bill
 		billService.DeleteBill(id);
 		

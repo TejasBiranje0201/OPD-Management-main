@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.opd_management.Services.DoctorService;
 import com.opd_management.dtos.DoctorDto;
 import com.opd_management.entities.Doctor;
+import com.opd_management.entities.Role;
 
 import jakarta.validation.Valid;
 
@@ -49,10 +51,12 @@ public class DoctorController {
 		//Add passwordEncoderfor storing encoded pass.
 		doctor.setPassword(passwordEncoder.encode(doctorDto.getPassword()));
 		doctor.setSpecialization(doctorDto.getSpecialization());
+		doctor.setQualification(doctorDto.getQualification());
 		doctor.setClinic_name(doctorDto.getClinic_name());
 		doctor.setMobileno(doctorDto.getMobileno());
 		doctor.setToken(doctorDto.getToken());
 		doctor.setStatus(doctorDto.getStatus());
+		doctor.setRole(Role.DOCTOR);
 		doctor.setCreated_at(doctorDto.getCreated_at());
 		doctor.setUpdated_at(doctorDto.getUpdated_at());
 		 
@@ -66,6 +70,7 @@ public class DoctorController {
 	// ---------------------- GET ALL DOCTORS ----------------------
 	
 	@GetMapping("/")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<Doctor>> GetAllDoctor(){
 		List<Doctor> doctorList = doctorService.getAllDoctor();
 		
@@ -93,7 +98,7 @@ public class DoctorController {
 	
 	
 	// ---------------------- UPDATE DOCTOR ----------------------
-	
+	@PreAuthorize("hasRole('DOCTOR')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Doctor> UpdateDoctor(@PathVariable("id") int id, @Valid @RequestBody DoctorDto doctorDto){
 		
@@ -142,7 +147,7 @@ public class DoctorController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	// ---------------------- DOCTOR LOGIN ----------------------
+
 
 	
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.opd_management.Services.AuthService;
 import com.opd_management.dtos.LoginReq_Dto;
 import com.opd_management.responce.JWtResponse;
-import com.opd_management.responce.LoginResponce;
+
 
 import jakarta.validation.Valid;
 
@@ -22,10 +22,21 @@ public class AuthController {
 	@Autowired
 	private AuthService authService;
 
-	 @PostMapping("/login")
-	    public JWtResponse login(@Valid @RequestBody LoginReq_Dto request) {
-	        return authService.login(request);
+	 @PostMapping("/login/doctor")
+	    public JWtResponse doctorLogin(@Valid @RequestBody LoginReq_Dto request) {
+	        return authService.doctorLogin(request);
 	    }
+	 
+	 @PostMapping("/login/admin")
+	    public JWtResponse adminLogin(@Valid @RequestBody LoginReq_Dto request) {
+	        return authService.adminLogin(request);
+	    }
+
+	 @PostMapping("/login/reception")
+	    public JWtResponse receptionLogin(@Valid @RequestBody LoginReq_Dto request) {
+	        return authService.recptionLogin(request);
+	    }
+	 
 	
 	
 }

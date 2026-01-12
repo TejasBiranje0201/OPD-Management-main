@@ -1,6 +1,7 @@
 package com.opd_management.dtos;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +28,7 @@ public class ReferralCenterDto {
 
     @NotNull(message = "Created date is required")
     @PastOrPresent(message = "Date must be past or present")
-    private Date created_at;
+    private LocalDateTime created_at;
 
     @Positive(message = "Doctor ID must be a positive number")
     @NotNull(message = "id cannot be null")
@@ -64,11 +65,11 @@ public class ReferralCenterDto {
         this.address = address;
     }
 
-    public Date getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreated_at(LocalDateTime created_at) {
+        this.created_at = LocalDateTime.now();
     }
 
     public int getDoctorid() {
