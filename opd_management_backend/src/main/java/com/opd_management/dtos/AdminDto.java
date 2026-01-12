@@ -1,17 +1,16 @@
 package com.opd_management.dtos;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public class DoctorDto {
+public class AdminDto {
 
+	
 	@NotBlank(message = "name is required")
 	@Size(min = 3,max = 50 ,message = "Name must be between 3–50 characters")
 	private String name;
@@ -24,36 +23,15 @@ public class DoctorDto {
     @Size(min = 6, message = "Password must be at least 6 characters")
 	private String password;
 	
-	@NotBlank(message = "Specialization is required")
-	private String specialization;
-	
-	@NotBlank(message = "Qualification is required")
-	@Size(min = 2, max = 50, message = "Qualification must be between 2–50 characters")
-	@Pattern(
-	    regexp = "^[A-Za-z .()/-]+$",
-	    message = "Qualification can only contain letters, spaces, dots, brackets, slashes and hyphens"
-	)
-	private String qualification;
-	
-	@NotBlank(message = "Clinic name is required")
-	private String clinic_name;
-	
-	@NotBlank(message = "Address cannot be empty")
-	private String address;
-	
 	@NotBlank(message = "Mobile number is required")
 	@Pattern(regexp="^[0-9]{10}$",message = "Mobile number must be exactly 10 digits")
 	private String mobileno;
 	
 	private String token;
-	
-	@NotBlank(message = "Status is required")
-    private String status;
-
+	@PastOrPresent(message = "Creating date must be past or present")
     private LocalDateTime created_at;
+	@PastOrPresent(message = "Creating date must be past or present")
     private LocalDateTime updated_at;
-	
-	// getter and setter 
 	public String getName() {
 		return name;
 	}
@@ -72,31 +50,6 @@ public class DoctorDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getSpecialization() {
-		return specialization;
-	}
-	public void setSpecialization(String specialization) {
-		this.specialization = specialization;
-	}
-	
-	public String getQualification() {
-		return qualification;
-	}
-	public void setQualification(String qualification) {
-		this.qualification = qualification;
-	}
-	public String getClinic_name() {
-		return clinic_name;
-	}
-	public void setClinic_name(String clinic_name) {
-		this.clinic_name = clinic_name;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
 	public String getMobileno() {
 		return mobileno;
 	}
@@ -108,12 +61,6 @@ public class DoctorDto {
 	}
 	public void setToken(String token) {
 		this.token = token;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
 	}
 	public LocalDateTime getCreated_at() {
 		return created_at;
@@ -127,6 +74,31 @@ public class DoctorDto {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = LocalDateTime.now();
 	}
-	
+	@Override
+	public String toString() {
+		return "adminDto [name=" + name + ", email=" + email + ", password=" + password + ", mobileno=" + mobileno
+				+ ", token=" + token + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
+	}
+	public AdminDto(
+			@NotBlank(message = "name is required") @Size(min = 3, max = 50, message = "Name must be between 3–50 characters") String name,
+			@NotBlank(message = "Email is Required") @Email(message = "Enter Valid Email address") String email,
+			@NotBlank(message = "Password cannot be blank") @Size(min = 6, message = "Password must be at least 6 characters") String password,
+			@NotBlank(message = "Mobile number is required") @Pattern(regexp = "^[0-9]{10}$", message = "Mobile number must be exactly 10 digits") String mobileno,
+			String token, LocalDateTime created_at, LocalDateTime updated_at) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.mobileno = mobileno;
+		this.token = token;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+	public AdminDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+    
+    
 	
 }

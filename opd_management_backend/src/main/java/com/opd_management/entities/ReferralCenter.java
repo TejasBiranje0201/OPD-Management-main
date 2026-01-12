@@ -1,6 +1,7 @@
 package com.opd_management.entities;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,7 +24,7 @@ public class ReferralCenter {
 	private String type;
 	private String contact_info;
 	private String address;
-	private Date created_at;
+	private LocalDateTime created_at;
 	
 	//table relation
 	@ManyToOne
@@ -72,12 +73,12 @@ public class ReferralCenter {
 		this.address = address;
 	}
 
-	public Date getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = LocalDateTime.now();
 	}
 
 	public Doctor getDoctorid() {
@@ -89,7 +90,7 @@ public class ReferralCenter {
 	}
 
 	//contructor
-	public ReferralCenter(int id, String name, String type, String contact_info, String address, Date created_at,
+	public ReferralCenter(int id, String name, String type, String contact_info, String address, LocalDateTime created_at,
 			Doctor doctorid) {
 		super();
 		this.id = id;

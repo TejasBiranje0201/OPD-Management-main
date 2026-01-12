@@ -66,18 +66,18 @@ public class GlobalExceptionHandler {
     	
     }
 	
-	// ✅ 5. FALLBACK EXCEPTION (ALWAYS KEEP AT BOTTOM)
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponce> handleGenericException(Exception ex) {
-
-    	ErrorResponce error = new ErrorResponce(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "Something went wrong"
-        );
-
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-	
+//	// ✅ 5. FALLBACK EXCEPTION (ALWAYS KEEP AT BOTTOM)
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponce> handleGenericException(Exception ex) {
+//
+//    	ErrorResponce error = new ErrorResponce(
+//                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+//                "Something went wrong"
+//        );
+//
+//        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
+//	
 	
 	
 	

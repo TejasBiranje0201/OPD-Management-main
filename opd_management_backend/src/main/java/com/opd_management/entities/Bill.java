@@ -2,6 +2,7 @@ package com.opd_management.entities;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,7 +28,7 @@ public class Bill {
 	private BigDecimal paid_amount;
 	private BigDecimal total_amount;
 	private BigDecimal pending_amount;
-	private Date created_at;
+	private LocalDateTime created_at;
 	
 	//relation of tables
 	@ManyToOne
@@ -101,12 +102,12 @@ public class Bill {
 		this.pending_amount = pending_amount;
 	}
 
-	public Date getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = LocalDateTime.now();
 	}
 
 	public Visit getVisitid() {
@@ -119,7 +120,7 @@ public class Bill {
 
 	//contructor with parameter
 	public Bill(int id, BigDecimal consultation_fee, String payment_status, String payment_mode, String concession,
-			BigDecimal paid_amount, BigDecimal total_amount, BigDecimal pending_amount, Date created_at,
+			BigDecimal paid_amount, BigDecimal total_amount, BigDecimal pending_amount, LocalDateTime created_at,
 			Visit visitid) {
 		super();
 		this.id = id;
@@ -134,7 +135,7 @@ public class Bill {
 		this.visitid = visitid;
 	}
 
-	//contructor
+	//Constructor
 	public Bill() {
 		super();
 		// TODO Auto-generated constructor stub

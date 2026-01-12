@@ -8,6 +8,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -27,7 +29,9 @@ public class SecurityConfig {
         )
 	        .authorizeHttpRequests(auth -> auth
 	            .requestMatchers( "/doctors/register",
-	            					"/auth/login").permitAll()
+	            					"/auth/login/doctor",
+	            		 "/auth/login/admin",
+	                     "/auth/login/reception").permitAll()
 	            .anyRequest().authenticated()
 	        )
 	        .sessionManagement(session -> 
@@ -39,6 +43,8 @@ public class SecurityConfig {
 	    return http.build();
 	    
 	}
+	
+	
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //    	  http

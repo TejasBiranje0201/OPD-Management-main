@@ -1,6 +1,7 @@
 package com.opd_management.entities;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,7 +21,7 @@ public class Diagnostic {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private Date created_at;
+	private LocalDateTime created_at;
 	
 	
 	//table relation
@@ -52,12 +53,12 @@ public class Diagnostic {
 		this.name = name;
 	}
 
-	public Date getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = LocalDateTime.now();
 	}
 
 	public Doctor getDoctorid() {
@@ -78,7 +79,7 @@ public class Diagnostic {
 
 	
 	//contructor 
-	public Diagnostic(int id, String name, Date created_at, Doctor doctorid, Visit visitid) {
+	public Diagnostic(int id, String name, LocalDateTime created_at, Doctor doctorid, Visit visitid) {
 		super();
 		this.id = id;
 		this.name = name;

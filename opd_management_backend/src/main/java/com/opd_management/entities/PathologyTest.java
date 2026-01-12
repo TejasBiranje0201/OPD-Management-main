@@ -2,6 +2,7 @@ package com.opd_management.entities;
 
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,7 +24,7 @@ public class PathologyTest {
 	private String result;
 	private String remarks;
 	private String report_file;
-	private Date created_at;
+	private LocalDateTime created_at;
 	
 	//table relation
 	@ManyToOne
@@ -69,12 +70,12 @@ public class PathologyTest {
 		this.report_file = report_file;
 	}
 
-	public Date getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = LocalDateTime.now();
 	}
 
 	public Visit getVisitid() {
@@ -94,7 +95,7 @@ public class PathologyTest {
 	}
 
 	//contructor
-	public PathologyTest(int id, String result, String remarks, String report_file, Date created_at, Visit visitid,
+	public PathologyTest(int id, String result, String remarks, String report_file, LocalDateTime created_at, Visit visitid,
 			TestMaster testmasterid) {
 		super();
 		this.id = id;
@@ -109,7 +110,7 @@ public class PathologyTest {
 	//contructor
 	public PathologyTest() {
 		super();
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub 
 	}
 
 	@Override

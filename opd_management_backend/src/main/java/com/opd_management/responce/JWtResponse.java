@@ -1,38 +1,46 @@
 package com.opd_management.responce;
 
+import com.opd_management.entities.Role;
+
 public class JWtResponse {
 	
 	 	private String token;
-	    private String email;
-	    
-	    
-		public JWtResponse(String token, String email) {
-			super();
-			this.token = token;
-			this.email = email;
-		}
-
-
+	    private Role role;
+	    private Object data;
 		public String getToken() {
 			return token;
 		}
-
-
 		public void setToken(String token) {
 			this.token = token;
 		}
-
-
-		public String getEmail() {
-			return email;
+		public Role getRole() {
+			return role;
 		}
-
-
-		public void setEmail(String email) {
-			this.email = email;
+		public void setRole(Role role) {
+			this.role = role;
 		}
-		
-		
+		public Object getData() {
+			return data;
+		}
+		public void setData(Object data) {
+			this.data = data;
+		}
+		@Override
+		public String toString() {
+			return "JWtResponse [token=" + token + ", role=" + role + ", data=" + data + "]";
+		}
+		public JWtResponse(String token, Role role, Object data) {
+			super();
+			this.token = token;
+			this.role = role;
+			this.data = data;
+		}
+		public JWtResponse() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+	    
+	    
 
 	   
 

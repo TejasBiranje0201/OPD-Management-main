@@ -1,6 +1,7 @@
 package com.opd_management.entities;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -47,8 +48,8 @@ public class Visit {
 	private String hb;
 	private String ecg;
 	private Date followup_date;
-	private Date created_at;
-	private Date updated_at;
+	private LocalDateTime created_at;
+	private LocalDateTime updated_at;
 	
 	//table relation
 	@ManyToOne
@@ -61,7 +62,6 @@ public class Visit {
 	@JsonIgnoreProperties(value= {"patientid"},allowSetters = true)
 	private Patient patientid;
 
-	//getter and setter
 	public int getId() {
 		return id;
 	}
@@ -294,20 +294,20 @@ public class Visit {
 		this.followup_date = followup_date;
 	}
 
-	public Date getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = LocalDateTime.now();
 	}
 
-	public Date getUpdated_at() {
+	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
 
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
+	public void setUpdated_at(LocalDateTime date) {
+		this.updated_at = LocalDateTime.now();
 	}
 
 	public Doctor getDoctorid() {
@@ -326,68 +326,7 @@ public class Visit {
 		this.patientid = patientid;
 	}
 
-	//contructor
-	public Visit(int id, Date visit_date, String complaints, String diagnosis, String advice, String bp, String pulse,
-			String saturation, String temperature, String respiration_rate, String sugar, String fasting_sugar,
-			String pp_sugar, String random_sugar, String urea_creatine, String past_history, String current_medication,
-			String additional_notes, int weight, String edema, String pallor, String jaundice, String cvs, String rs,
-			String pa, String cns, String hb, String ecg, Date followup_date, Date created_at, Date updated_at,
-			Doctor doctorid, Patient patientid) {
-		super();
-		this.id = id;
-		this.visit_date = visit_date;
-		this.complaints = complaints;
-		this.diagnosis = diagnosis;
-		this.advice = advice;
-		this.bp = bp;
-		this.pulse = pulse;
-		this.saturation = saturation;
-		this.temperature = temperature;
-		this.respiration_rate = respiration_rate;
-		this.sugar = sugar;
-		this.fasting_sugar = fasting_sugar;
-		this.pp_sugar = pp_sugar;
-		this.random_sugar = random_sugar;
-		this.urea_creatine = urea_creatine;
-		this.past_history = past_history;
-		this.current_medication = current_medication;
-		this.additional_notes = additional_notes;
-		this.weight = weight;
-		this.edema = edema;
-		this.pallor = pallor;
-		this.jaundice = jaundice;
-		this.cvs = cvs;
-		this.rs = rs;
-		this.pa = pa;
-		this.cns = cns;
-		this.hb = hb;
-		this.ecg = ecg;
-		this.followup_date = followup_date;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-		this.doctorid = doctorid;
-		this.patientid = patientid;
-	}
-
-	//contructor
-	public Visit() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "Visit [id=" + id + ", visit_date=" + visit_date + ", complaints=" + complaints + ", diagnosis="
-				+ diagnosis + ", advice=" + advice + ", bp=" + bp + ", pulse=" + pulse + ", saturation=" + saturation
-				+ ", temperature=" + temperature + ", respiration_rate=" + respiration_rate + ", sugar=" + sugar
-				+ ", fasting_sugar=" + fasting_sugar + ", pp_sugar=" + pp_sugar + ", random_sugar=" + random_sugar
-				+ ", urea_creatine=" + urea_creatine + ", past_history=" + past_history + ", current_medication="
-				+ current_medication + ", additional_notes=" + additional_notes + ", weight=" + weight + ", edema="
-				+ edema + ", pallor=" + pallor + ", jaundice=" + jaundice + ", cvs=" + cvs + ", rs=" + rs + ", pa=" + pa
-				+ ", cns=" + cns + ", hb=" + hb + ", ecg=" + ecg + ", followup_date=" + followup_date + ", created_at="
-				+ created_at + ", updated_at=" + updated_at + ", doctorid=" + doctorid + ", patientid=" + patientid
-				+ "]";
-	}
+	//getter and setter
 	
 	
 }

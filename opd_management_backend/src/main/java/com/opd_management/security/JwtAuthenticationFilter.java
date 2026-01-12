@@ -1,12 +1,12 @@
 package com.opd_management.security;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,23 +15,18 @@ import com.opd_management.responce.ErrorResponce;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
-
-import org.springframework.security.core.userdetails.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import tools.jackson.databind.ObjectMapper;
-@Component   
-public class JwtAuthenticationFilter extends OncePerRequestFilter  {
-	
-	
-	@Autowired
-	private JwtUtil jwtUtil;
-	
-	
-	// MAIN FILTER METHOD
-	@Override
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Component
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
@@ -40,22 +35,34 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter  {
         try {
             String authHeader = request.getHeader("Authorization");
 
-            if (authHeader != null && authHeader.startsWith("Bearer ")) {
-
-                String token = authHeader.substring(7);
-
-                if (jwtUtil.isValid(token)) {
-                    String email = jwtUtil.extractEmail(token);
-
-                    UsernamePasswordAuthenticationToken auth =
-                            new UsernamePasswordAuthenticationToken(
-                                    email, null, Collections.emptyList());
-
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                }
+            // ✅ If token missing → skip
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                filterChain.doFilter(request, response);
+                return;
             }
 
-            // Continue request
+            String token = authHeader.substring(7);
+
+            if (jwtUtil.isValid(token)) {
+
+                // 🔐 Extract data from JWT
+                String email = jwtUtil.extractEmail(token);
+                String role = jwtUtil.extractRole(token);
+
+                // 🔑 Convert ROLE to Authority
+                SimpleGrantedAuthority authority =
+                        new SimpleGrantedAuthority("ROLE_" + role);
+
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(
+                                email,
+                                null,
+                                List.of(authority)
+                        );
+
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+
             filterChain.doFilter(request, response);
 
         } catch (ExpiredJwtException ex) {
@@ -67,12 +74,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter  {
         } catch (SignatureException ex) {
             sendError(response, "JWT signature invalid");
 
-        } catch (Exception ex) {
-            sendError(response, "JWT authentication failed");
         }
-    }
+//        catch (Exception ex) {
+//            sendError(response, "JWT authentication failed");
+//        }
+    }  
 
-    // 🟡 HELPER METHOD (WRITE THIS HERE 👇)
+    // 🔴 Error Response Method
     private void sendError(HttpServletResponse response, String message)
             throws IOException {
 
@@ -86,5 +94,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter  {
 
         new ObjectMapper().writeValue(response.getOutputStream(), error);
     }
-
 }
